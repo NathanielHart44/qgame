@@ -59,29 +59,40 @@ export default function PlayGame() {
                     </Stack>
                     { selectedLeague && (
                         <>
-                            <Stack spacing={2} alignItems={'flex-start'} justifyContent={'center'} direction={'row'}>
-                                <Stack spacing={2} alignItems={'center'} justifyContent={'center'}>
+                            <Stack spacing={2} alignItems={'flex-start'} justifyContent={'center'} direction={'row'} width={'100%'}>
+                                <Stack spacing={2} alignItems={'center'} justifyContent={'center'} width={'100%'}>
                                     <Typography variant={'h6'}>Home Team: {selectedHomeTeam ? selectedHomeTeam.name : '-'}</Typography>
-                                    { !selectedHomeTeam &&
-                                        <Stack spacing={2} alignItems={'center'} justifyContent={'center'}>
-                                            {selectedLeague.teams.filter((team: Team) => checkIfAllStartersFilled(team)).map((team: Team, index: number) => (
-                                                <TeamCard key={team.name + 'home' + index} team={team} setTeam={setSelectedHomeTeam} />
-                                            ))}
-                                        </Stack>
-                                    }
+                                    <Grid container spacing={2} alignItems={'center'} justifyContent={'center'} sx={{ width: '100%' }}>
+                                        { !selectedHomeTeam &&
+                                            <>
+                                                {selectedLeague.teams.filter((team: Team) => checkIfAllStartersFilled(team)).map((team: Team, index: number) => (
+                                                    <Grid item xs={12} sm={6}md={4} key={team.name + 'home' + index}>
+                                                        <TeamCard team={team} setTeam={setSelectedHomeTeam} />
+                                                    </Grid>
+                                                ))}
+                                            </>
+                                        }
+                                        { selectedHomeTeam && !selectedHomeTeam &&
+                                            <TeamCard team={selectedHomeTeam} setTeam={setSelectedHomeTeam} />
+                                        }
+                                    </Grid>
                                 </Stack>
                                 <Divider orientation={'vertical'} flexItem />
-                                <Stack spacing={2} alignItems={'center'} justifyContent={'center'}>
+                                <Stack spacing={2} alignItems={'center'} justifyContent={'center'} width={'100%'}>
                                     <Typography variant={'h6'}>Away Team: {selectedAwayTeam ? selectedAwayTeam.name : '-'}</Typography>
-                                    { (selectedHomeTeam && !selectedAwayTeam) &&
-                                        <Stack spacing={2} alignItems={'center'} justifyContent={'center'}>
-                                            {selectedLeague.teams.filter((team: Team) => checkIfAllStartersFilled(team) && team.id !== selectedHomeTeam.id)
-                                                .map((team: Team, index: number) => (
-                                                    <TeamCard key={team.name + 'away' + index} team={team} setTeam={setSelectedAwayTeam} />
-                                                ))
-                                            }
-                                        </Stack>
-                                    }
+                                    <Grid container spacing={2} alignItems={'center'} justifyContent={'center'} sx={{ width: '100%' }}>
+                                        { (selectedHomeTeam && !selectedAwayTeam) &&
+                                            <>
+                                                {selectedLeague.teams.filter((team: Team) => checkIfAllStartersFilled(team) && team.id !== selectedHomeTeam.id)
+                                                    .map((team: Team, index: number) => (
+                                                        <Grid item xs={12} sm={6}md={4} key={team.name + 'away' + index}>
+                                                            <TeamCard team={team} setTeam={setSelectedAwayTeam} />
+                                                        </Grid>
+                                                    ))
+                                                }
+                                            </>
+                                        }
+                                    </Grid>
                                 </Stack>
                             </Stack>
                             { selectedHomeTeam && selectedAwayTeam &&

@@ -149,10 +149,10 @@ function LeagueDiv({ league }: LeagueDivProps) {
                 onClick={() => { setOpen(!open) }}
                 expandIcon={<ExpandMoreIcon />}
                 sx={{
-                borderRadius: '8px',
-                transition: accordian_transition,
-                color: theme.palette.text.secondary,
-                ...(open && { bgcolor: open_background_color }),
+                    borderRadius: '8px',
+                    transition: accordian_transition,
+                    color: theme.palette.text.secondary,
+                    ...(open && { bgcolor: open_background_color }),
                 }}
             >
                 <Typography sx={{ transition: text_transition, ...(open && { color: theme.palette.primary.main }) }}>{league.name}</Typography>
